@@ -1,0 +1,39 @@
+.header{
+    border:1px solid lightgray;
+    border-radius: 25px;
+      background: beige;
+      padding: 20px;
+      width: auto;
+      height: 200px;
+      text-align:center
+    }
+    .body{
+      border:1px solid lightgray;
+    border-radius: 25px;
+      background: beige;
+      padding: 20px;
+      width: auto;
+      height: 70vh;
+    }
+    .center{
+        text-align: center;
+    }
+    .addUser{
+        width:100px;
+        height:40px;
+    }
+    .float-container {
+      border: 3px solid #fff;
+      padding: 20px;
+    }
+    
+    .float-child1 {
+      width: 50%;
+      float: left;
+      padding: 20px;
+    } 
+    .float-child2 {
+      width: 50%;
+      float: right;
+      padding: 20px;
+    } 

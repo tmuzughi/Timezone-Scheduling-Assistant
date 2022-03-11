@@ -25,6 +25,10 @@ export class AppComponent {
   timezones:string[] = ["UTC","EST","EDT","CST","CDT","MST","MDT","PST","PDT"];
   selectedTimezone:any;
   disabled:boolean = true;
+  mobile:boolean = false;
+  buttonText:string[] = ["Add Colleagues", "Clear List", "Calculate Availability"];
+  buttonTextMobile:string[] = ["Add", "Clear", "Calculate"];
+  border:string = "";
 
   ngOnInit(){
     //assign conversion values
@@ -36,6 +40,12 @@ export class AppComponent {
       {name:"Susan", availability:"8:00 am - 12:00 pm,3:00 pm - 5:00 pm,6:00 pm - 8:00 pm", timezone:"EST",modules:[]}
 
     ];
+    console.log("window width :" + window.innerWidth)
+    if (window.innerWidth <= 500){
+      this.mobile = true;
+      this.buttonText = this.buttonTextMobile;
+      this.border = "1px solid black";
+    }
   }
   onChange(){
     this.convertGroupAvailability(this.lastTimezone, this.selectedTimezone);

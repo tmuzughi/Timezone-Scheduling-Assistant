@@ -1,16 +1,18 @@
 
 <div class="header">
-  <h1 style="margin-bottom: 20px;">Timezone Scheduling Assistant</h1>
-  <button pButton type="button" label="Add Colleague" (click)="addColleague()"></button>&nbsp;
-  <button pButton type="button" label="Clear List" (click)="clearList()"></button>&nbsp;
-  <button pButton type="button" label="Calculate Availability" (click)="calculateAvailability()"></button>&nbsp;
-  <p-dropdown [options]="timezones" [(ngModel)]="selectedTimezone" optionLabel="" (onChange)="onChange()"
-   [disabled]="disabled" ></p-dropdown>
+  <h1 *ngIf="!mobile" style="margin-bottom: 20px;">Timezone Scheduling Assistant</h1>
+  <h2 *ngIf="mobile" style="margin-bottom: 20px;">Timezone Scheduling Assistant</h2>
+  <button class="p-dropdown" pButton type="button" [label]="buttonText[0]" (click)="addColleague()"></button>&nbsp;
+  <button class="p-dropdown" pButton type="button" [label]="buttonText[1]" (click)="clearList()"></button>&nbsp;
+  <button class="p-dropdown" pButton type="button" [label]="buttonText[2]" (click)="calculateAvailability()"></button>&nbsp;
+  <br *ngIf="mobile"><br *ngIf="mobile">
+  <p-dropdown class="p-dropdown" [options]="timezones" [(ngModel)]="selectedTimezone" optionLabel="" (onChange)="onChange()"
+   [disabled]="disabled" placeholder=""></p-dropdown>
 </div>
-<div class="float-container" >
+<div class="float-container" *ngIf="!mobile">
 <div class="card body float-child1" style="width:45%;">
   
-  <p-table [value]="colleagues">
+  <p-table [value]="colleagues" styleClass="p-table-grid">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -20,17 +22,21 @@
     </ng-template>
     <ng-template pTemplate="body" let-col>
         <tr>
-          <td pEditableColumn>
+           
+          <td pEditableColumn [style.border]="border">
             <p-cellEditor>
-                <ng-template pTemplate="input">
-                    <input type="text" [(ngModel)]="col.name">
+                <ng-template pTemplate="input" >
+                    
+                    <input type="text" [(ngModel)]="col.name" >
+                
                 </ng-template>
                 <ng-template pTemplate="output">
                     {{col.name}}
                 </ng-template>
             </p-cellEditor>
         </td>
-        <td pEditableColumn>
+    
+        <td pEditableColumn [style.border]="border">
           <p-cellEditor>
               <ng-template pTemplate="input">
                   <input type="text" [(ngModel)]="col.availability">
@@ -40,7 +46,7 @@
               </ng-template>
           </p-cellEditor>
       </td>
-      <td pEditableColumn>
+      <td pEditableColumn [style.border]="border">
         <p-cellEditor>
             <ng-template pTemplate="input">
                 <input type="text" [(ngModel)]="col.timezone">
@@ -72,3 +78,76 @@
 </p-table>
 </div>
 </div>
+<!-----------------------------------------------MOBILE---------------------------------------------------->
+&nbsp;
+<div class="" *ngIf="mobile" >
+    <div class="card body " style="height:auto">
+        <p-table [value]="groupAvailability">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Group Availability</th>
+                  <th>Timezone</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-col>
+              <tr>
+                  <td [style.border]="border">{{col}}</td>
+                  <td [style.border]="border">{{selectedTimezone}}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+      </div>&nbsp;
+    <div class="card body" style="height:auto">
+      
+      <p-table [value]="colleagues" styleClass="p-table-grid">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Availability</th>
+                <th>Timezone</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-col>
+            <tr>
+               
+              <td pEditableColumn [style.border]="border">
+                <p-cellEditor>
+                    <ng-template pTemplate="input" >
+                        
+                        <input type="text" [(ngModel)]="col.name" >
+                    
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{col.name}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        
+            <td pEditableColumn [style.border]="border">
+              <p-cellEditor>
+                  <ng-template pTemplate="input">
+                      <input type="text" [(ngModel)]="col.availability">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{col.availability}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          <td pEditableColumn [style.border]="border">
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input type="text" [(ngModel)]="col.timezone">
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{col.timezone}}
+                </ng-template>
+            </p-cellEditor>
+        </td>
+        <div style="height:10px;background-color: beige;"></div>
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    </div>&nbsp;
+    
+    </div>

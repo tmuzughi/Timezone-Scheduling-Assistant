@@ -24,26 +24,41 @@
     }
     .float-container {
       border: 3px solid #fff;
-      padding: 20px;
     }
-    
-    .float-child1 {
-      width: 50%;
+    .p-dropdown{
+      
+    }
+    .float-left {
+      width: 32%;
       float: left;
-      padding: 20px;
+      margin-left:5px;
+      height:95vh;
     } 
-    .float-child2 {
-      width: 50%;
+    .float-right {
+      width: 33%;
       float: right;
-      padding: 20px;
+      height:95vh;
     } 
+    .float-center{
+      width: 33%;
+      float:inline-start;
+    }
     .test{
       height: 10px !important;
     }
-    .p-dropdown{
-      height: 40px;
-
-    }
+    
     .input{
       border:1px solid rgb(192, 27, 27);
+    }
+    .addColleague{
+      border: 1px solid black;
+      height: 30vh;
+    }
+    .colleagueAvailability{
+      border: 1px solid blue;
+      height: 65vh;
+    }
+    .teamAvailability{
+      border: 1px solid red;
+      height: 65vh;
     }

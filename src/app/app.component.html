@@ -1,105 +1,35 @@
 
-<div class="header">
-  <h1 *ngIf="!mobile" style="margin-bottom: 20px;">Timezone Scheduling Assistant</h1>
-  <h2 *ngIf="mobile" style="margin-bottom: 20px;">Timezone Scheduling Assistant</h2>
-  <button class="p-dropdown" pButton type="button" [label]="buttonText[0]" (click)="addColleague()"></button>&nbsp;
-  <button class="p-dropdown" pButton type="button" [label]="buttonText[1]" (click)="clearList()"></button>&nbsp;
-  <button class="p-dropdown" pButton type="button" [label]="buttonText[2]" (click)="calculateAvailability()"></button>&nbsp;
-  <br *ngIf="mobile"><br *ngIf="mobile">
-  <p-dropdown class="p-dropdown" [options]="timezones" [(ngModel)]="selectedTimezone" optionLabel="" (onChange)="onChange()"
-   [disabled]="disabled" placeholder=""></p-dropdown>
-</div>
-<div class="float-container" *ngIf="!mobile">
-<div class="card body float-child1" style="width:45%;">
-  
-  <p-table [value]="colleagues" styleClass="p-table-grid">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Availability</th>
-            <th>Timezone</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-col>
-        <tr>
-           
-          <td pEditableColumn [style.border]="border">
-            <p-cellEditor>
-                <ng-template pTemplate="input" >
-                    
-                    <input type="text" [(ngModel)]="col.name" >
-                
-                </ng-template>
-                <ng-template pTemplate="output">
-                    {{col.name}}
-                </ng-template>
-            </p-cellEditor>
-        </td>
-    
-        <td pEditableColumn [style.border]="border">
-          <p-cellEditor>
-              <ng-template pTemplate="input">
-                  <input type="text" [(ngModel)]="col.availability">
-              </ng-template>
-              <ng-template pTemplate="output">
-                  {{col.availability}}
-              </ng-template>
-          </p-cellEditor>
-      </td>
-      <td pEditableColumn [style.border]="border">
-        <p-cellEditor>
-            <ng-template pTemplate="input">
-                <input type="text" [(ngModel)]="col.timezone">
-            </ng-template>
-            <ng-template pTemplate="output">
-                {{col.timezone}}
-            </ng-template>
-        </p-cellEditor>
-    </td>
-        </tr>
-    </ng-template>
-</p-table>
 
-</div>&nbsp;
-<div class="card body float-child2" style="width:45%;">
-  <p-table [value]="groupAvailability">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Group Availability</th>
-            <th>Timezone</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-col>
-        <tr>
-            <td>{{col}}</td>
-            <td>{{selectedTimezone}}</td>
-        </tr>
-    </ng-template>
-</p-table>
+<div class="float-container center">
+<div class="float-left" style="border:1px solid lightgray">
+    <h2 >Add Colleague</h2>
+    <div class="float-container">
+        <h4>Name: </h4>
+        <input [(ngModel)]="tempName">
+    </div>
+    <br>
+    <h4>Add Availability: </h4>
+    <p-dropdown  [options]="times" [(ngModel)]="tempStart"></p-dropdown>
+    <p-dropdown  [options]="suffix" [(ngModel)]="tempStartMeridiem"></p-dropdown> - 
+    <p-dropdown  [options]="times" [(ngModel)]="tempEnd"></p-dropdown>
+    <p-dropdown  [options]="suffix" [(ngModel)]="tempEndMeridiem"></p-dropdown>
+    <br>
+    <button style="margin-top:5px" pButton type="button" label="Add Availability" (click)="addAvailability()"></button>&nbsp;
+    <h4>Colleague's Availabilities</h4>
+
+    {{tempAvailabilityText}}
+    <br>
+    <h4>Timezone</h4>
+    <p-dropdown  [options]="timezones" [(ngModel)]="tempTimezone" optionLabel="" placeholder=""></p-dropdown>
+    <br><br><br>
+    <button style="margin-top:5px" pButton type="button" label="Clear" ></button>&nbsp;
+    <button style="margin-top:5px" pButton type="button" label="Save" (click)="saveColleague()"></button>&nbsp;
 </div>
-</div>
-<!-----------------------------------------------MOBILE---------------------------------------------------->
-&nbsp;
-<div class="" *ngIf="mobile" >
-    <div class="card body " style="height:auto">
-        <p-table [value]="groupAvailability">
-          <ng-template pTemplate="header">
-              <tr>
-                  <th>Group Availability</th>
-                  <th>Timezone</th>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-col>
-              <tr>
-                  <td [style.border]="border">{{col}}</td>
-                  <td [style.border]="border">{{selectedTimezone}}</td>
-              </tr>
-          </ng-template>
-      </p-table>
-      </div>&nbsp;
-    <div class="card body" style="height:auto">
-      
-      <p-table [value]="colleagues" styleClass="p-table-grid">
+
+<div class="float-left" style="border:1px solid lightgray">
+    <h2 >Team Availability</h2>
+    <br>
+    <p-table [value]="team">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -109,45 +39,55 @@
         </ng-template>
         <ng-template pTemplate="body" let-col>
             <tr>
-               
-              <td pEditableColumn [style.border]="border">
-                <p-cellEditor>
-                    <ng-template pTemplate="input" >
-                        
-                        <input type="text" [(ngModel)]="col.name" >
-                    
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{col.name}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
-        
-            <td pEditableColumn [style.border]="border">
-              <p-cellEditor>
-                  <ng-template pTemplate="input">
-                      <input type="text" [(ngModel)]="col.availability">
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{col.availability}}
-                  </ng-template>
-              </p-cellEditor>
-          </td>
-          <td pEditableColumn [style.border]="border">
-            <p-cellEditor>
-                <ng-template pTemplate="input">
-                    <input type="text" [(ngModel)]="col.timezone">
-                </ng-template>
-                <ng-template pTemplate="output">
-                    {{col.timezone}}
-                </ng-template>
-            </p-cellEditor>
-        </td>
-        <div style="height:10px;background-color: beige;"></div>
+                <td>{{col.name}}</td>
+                <td>{{col.availability}}</td>
+                <td>{{col.timezone}}</td>
             </tr>
         </ng-template>
-    </p-table>
-    
-    </div>&nbsp;
-    
+    </p-table> <!--replace with table-->
+    <button *ngIf="team.length > 1" style="margin-top:5px" pButton type="button" label="Calculate Results" (click)="calculateAvailability()"></button>&nbsp;
+</div>
+<div class="float-right" style="border:1px solid lightgray">
+    <h2 >Results</h2>
+    <br>
+    <p-dropdown  [options]="timezones" [(ngModel)]="selectedTimezone" optionLabel="" (onChange)="onChange()" placeholder=""></p-dropdown>
+    <br><br>
+    {{results}}
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+<div #addColleague class="addColleague">
+    <p style="margin-left:5px">Add Colleague</p>
+   
+           
+    <div>
+        <p style="margin-left:5px">Name: </p>
+        <input style="margin-left:5px">
     </div>
+    <br>
+    <p>Add Availability: </p>
+    <p-dropdown  [options]="times" [(ngModel)]="selectedTime" optionLabel="" (onChange)="onChange()" placeholder=""
+    style="margin-left:5px"></p-dropdown>
+    <p-dropdown  [options]="suffix" [(ngModel)]="selectedSuffix" optionLabel="" (onChange)="onChange()" placeholder=""></p-dropdown> - 
+    <p-dropdown  [options]="times" [(ngModel)]="selectedTime" optionLabel="" (onChange)="onChange()" placeholder=""></p-dropdown>
+    <p-dropdown  [options]="suffix" [(ngModel)]="selectedSuffix" optionLabel="" (onChange)="onChange()" placeholder=""></p-dropdown>&nbsp;
+    <button pButton type="button" [label]="buttonText[0]" (click)="add()"></button>&nbsp;
+</div>
+<div #main class="float-container">
+    <div #colleagueAvailability class="colleagueAvailability float-child1">
+        <p>Colleague Availability</p>
+    </div>
+    <div #teamAvailability class="teamAvailability float-child2">
+        <p>Team Availability</p>
+    </div>
+</div>-->
